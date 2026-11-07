@@ -1,9 +1,10 @@
-class MainMenuScene extends Phaser.Scene {
+class MainMenu extends Phaser.Scene {
 	constructor() {
 		super('MainMenu');
 	}
 
 	preload() {
+		// see helpers.js
 		makeXMLSprite(this, 'funkinLogo', 'logoBumpin');
 		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle');
 	}
