@@ -24,4 +24,8 @@ class MainMenu extends Phaser.Scene {
 		playAnim(titleEnter, 'idle');
 		titleEnter.setTint(0x90d5ff)
 	}
+
+	update() {
+		// console.log(this.time)
+	}
 }
