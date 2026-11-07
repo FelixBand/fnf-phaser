@@ -22,5 +22,6 @@ class MainMenu extends Phaser.Scene {
 		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1);
 		const titleEnter = this.add.sprite(839, 615, 'titleEnter');
 		playAnim(titleEnter, 'idle');
+		titleEnter.setTint(0x90d5ff)
 	}
 }
