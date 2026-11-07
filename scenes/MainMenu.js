@@ -8,6 +8,7 @@ class MainMenu extends Phaser.Scene {
 		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle');
 		makeXMLSprite(this, 'funkinLogo', 'logoBumpin');
 		makeXMLSprite(this, 'titleEnter', 'titleEnter');
+		makeSprite(this, 'transition', 'transition');
 	}
 
 	create() {
@@ -20,11 +21,20 @@ class MainMenu extends Phaser.Scene {
 		playAnim(this.funkinLogo, 'idle');
 
 		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1);
+		addAnimationByPrefix(this, 'titleEnter', 'pressed', 'ENTER PRESSED', 24, -1);
 		this.titleEnter = this.add.sprite(839, 615, 'titleEnter');
 		playAnim(this.titleEnter, 'idle');
 	}
 
 	update(frame, delta) {
 		this.titleEnter.setTint(Phaser.Display.Color.GetColor(0, ((Math.sin(this.time.now / 400) + 1) / 2) * 255, 255))
+
+		if (this.input.keyboard.checkDown(
+			this.input.keyboard.addKey('SPACE')
+		)) {
+			console.log('i fucken pressed spacebar')
+			// Space is held
+			playAnim(this.titleEnter, 'pressed')
+		}
 	}
 }

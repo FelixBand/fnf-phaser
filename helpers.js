@@ -1,5 +1,9 @@
 const imgDir = 'assets/images/';
 
+function makeSprite(scene, tag, path) {
+    scene.load.image(tag, imgDir + path + '.png');
+}
+
 function makeXMLSprite(scene, tag, path) {
     scene.load.atlasXML(tag, imgDir + path + '.png', imgDir + path + '.xml');
 }
