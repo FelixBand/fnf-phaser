@@ -12,20 +12,19 @@ class MainMenu extends Phaser.Scene {
 
 	create() {
 		addAnimationByPrefix(this, 'gfTitle', 'idle', 'gfDance', 24, -1);
-		const gfTitle = this.add.sprite(872, 370, 'gfTitle');
-		playAnim(gfTitle, 'idle');
+		this.gfTitle = this.add.sprite(872, 370, 'gfTitle');
+		playAnim(this.gfTitle, 'idle');
 
 		addAnimationByPrefix(this, 'funkinLogo', 'idle', 'logo bumpin', 24, -1);
-		const funkinLogo = this.add.sprite(320, 251, 'funkinLogo');
-		playAnim(funkinLogo, 'idle');
+		this.funkinLogo = this.add.sprite(320, 251, 'funkinLogo');
+		playAnim(this.funkinLogo, 'idle');
 
 		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1);
-		const titleEnter = this.add.sprite(839, 615, 'titleEnter');
-		playAnim(titleEnter, 'idle');
-		titleEnter.setTint(0x90d5ff)
+		this.titleEnter = this.add.sprite(839, 615, 'titleEnter');
+		playAnim(this.titleEnter, 'idle');
 	}
 
-	update() {
-		// console.log(this.time)
+	update(frame, delta) {
+		this.titleEnter.setTint(Phaser.Display.Color.GetColor(0, ((Math.sin(this.time.now / 400) + 1) / 2) * 255, 255))
 	}
 }
