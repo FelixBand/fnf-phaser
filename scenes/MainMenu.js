@@ -7,6 +7,7 @@ class MainMenu extends Phaser.Scene {
 		// see helpers.js
 		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle');
 		makeXMLSprite(this, 'funkinLogo', 'logoBumpin');
+		makeXMLSprite(this, 'titleEnter', 'titleEnter');
 	}
 
 	create() {
@@ -17,5 +18,9 @@ class MainMenu extends Phaser.Scene {
 		addAnimationByPrefix(this, 'funkinLogo', 'idle', 'logo bumpin', 24, -1);
 		const funkinLogo = this.add.sprite(320, 251, 'funkinLogo');
 		playAnim(funkinLogo, 'idle');
+
+		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1);
+		const titleEnter = this.add.sprite(839, 615, 'titleEnter');
+		playAnim(titleEnter, 'idle');
 	}
 }
