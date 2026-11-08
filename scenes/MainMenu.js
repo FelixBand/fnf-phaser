@@ -1,3 +1,5 @@
+let pressedEnter = false;
+
 class MainMenu extends Phaser.Scene {
 	constructor() {
 		super('MainMenu');
@@ -27,14 +29,18 @@ class MainMenu extends Phaser.Scene {
 	}
 
 	update(frame, delta) {
-		this.titleEnter.setTint(Phaser.Display.Color.GetColor(0, ((Math.sin(this.time.now / 400) + 1) / 2) * 255, 255))
-
-		if (this.input.keyboard.checkDown(
-			this.input.keyboard.addKey('SPACE')
-		)) {
-			console.log('i fucken pressed spacebar')
-			// Space is held
+		if (!pressedEnter && (this.input.keyboard.checkDown(this.input.keyboard.addKey('ENTER')) || this.input.keyboard.checkDown(this.input.keyboard.addKey('SPACE')))) {
+			pressedEnter = true;
 			playAnim(this.titleEnter, 'pressed')
+			this.titleEnter.setTint(0xffffff)
+		}
+
+		if (!pressedEnter) {
+			this.titleEnter.setTint(Phaser.Display.Color.GetColor( // rgb
+				0, 
+				((Math.sin(this.time.now / 400) + 1) / 2) * 255,
+				205 + ((Math.sin(this.time.now / 400) + 1) / 2) * 50
+			))
 		}
 	}
 }
