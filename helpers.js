@@ -42,3 +42,7 @@ function playAnim(sprite, animName) {
 
     sprite.play(key);
 }
+
+function keyDown(scene, key) {
+    return scene.input.keyboard.checkDown(scene.input.keyboard.addKey(key))
+}

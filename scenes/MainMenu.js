@@ -29,7 +29,7 @@ class MainMenu extends Phaser.Scene {
 	}
 
 	update(frame, delta) {
-		if (!pressedEnter && (this.input.keyboard.checkDown(this.input.keyboard.addKey('ENTER')) || this.input.keyboard.checkDown(this.input.keyboard.addKey('SPACE')))) {
+		if (!pressedEnter && (keyDown(this, 'ENTER') || keyDown(this, 'SPACE'))) {
 			pressedEnter = true;
 			playAnim(this.titleEnter, 'pressed')
 			this.titleEnter.setTint(0xffffff)
