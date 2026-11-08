@@ -1,38 +1,52 @@
-let pressedEnter = false;
+let pressedEnter = false
 
 class MainMenu extends Phaser.Scene {
 	constructor() {
-		super('MainMenu');
+		super('MainMenu')
 	}
 
 	preload() {
 		// see helpers.js
-		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle');
-		makeXMLSprite(this, 'funkinLogo', 'logoBumpin');
-		makeXMLSprite(this, 'titleEnter', 'titleEnter');
-		makeSprite(this, 'transition', 'transition');
+		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle')
+		makeXMLSprite(this, 'funkinLogo', 'logoBumpin')
+		makeXMLSprite(this, 'titleEnter', 'titleEnter')
+		makeSprite(this, 'menuBG', 'menuDesat')
+
+		this.load.audio('confirmMenu', 'assets/sounds/confirmMenu.ogg')
 	}
 
 	create() {
-		addAnimationByPrefix(this, 'gfTitle', 'idle', 'gfDance', 24, -1);
-		this.gfTitle = this.add.sprite(872, 370, 'gfTitle');
-		playAnim(this.gfTitle, 'idle');
+		addAnimationByPrefix(this, 'gfTitle', 'idle', 'gfDance', 24, -1)
+		this.gfTitle = this.add.sprite(872, 370, 'gfTitle')
+		playAnim(this.gfTitle, 'idle')
 
-		addAnimationByPrefix(this, 'funkinLogo', 'idle', 'logo bumpin', 24, -1);
-		this.funkinLogo = this.add.sprite(320, 251, 'funkinLogo');
-		playAnim(this.funkinLogo, 'idle');
+		addAnimationByPrefix(this, 'funkinLogo', 'idle', 'logo bumpin', 24, -1)
+		this.funkinLogo = this.add.sprite(320, 251, 'funkinLogo')
+		playAnim(this.funkinLogo, 'idle')
 
-		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1);
-		addAnimationByPrefix(this, 'titleEnter', 'pressed', 'ENTER PRESSED', 24, -1);
-		this.titleEnter = this.add.sprite(839, 615, 'titleEnter');
-		playAnim(this.titleEnter, 'idle');
+		addAnimationByPrefix(this, 'titleEnter', 'idle', 'ENTER IDLE', 24, -1)
+		addAnimationByPrefix(this, 'titleEnter', 'pressed', 'ENTER PRESSED', 24, -1)
+		this.titleEnter = this.add.sprite(839, 615, 'titleEnter')
+		playAnim(this.titleEnter, 'idle')
+
 	}
 
 	update(frame, delta) {
 		if (!pressedEnter && (keyDown(this, 'ENTER') || keyDown(this, 'SPACE'))) {
-			pressedEnter = true;
+			pressedEnter = true
 			playAnim(this.titleEnter, 'pressed')
 			this.titleEnter.setTint(0xffffff)
+			this.sound.play('confirmMenu')
+			this.time.delayedCall(1000, () => {
+				transition(this, {
+					onCovered: () => {
+						this.gfTitle.setVisible(false)
+						this.funkinLogo.setVisible(false)
+						this.titleEnter.setVisible(false)
+						this.menuBG = this.add.sprite(centerX, centerY, 'menuBG')
+					}
+				})
+			})
 		}
 
 		if (!pressedEnter) {

@@ -55,3 +55,40 @@ function getRandom(min, max, decimals = 0) {
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function screenCenter(scene, sprite, axis = 'xy') {
+    const centerX = scene.scale.width / 2;
+    const centerY = scene.scale.height / 2;
+
+    if (axis.includes('x')) {
+        sprite.x = centerX;
+    }
+
+    if (axis.includes('y')) {
+        sprite.y = centerY;
+    }
+
+    return sprite;
+}
+
+function transition(scene, { onCovered = () => {}, targetScene } = {}) {
+    const transitionScene = scene.scene.get('Transition')
+
+    const playTransition = () => {
+        transitionScene.play('in', () => {
+            onCovered()
+            if (targetScene) {
+                scene.scene.start(targetScene)
+            }
+            transitionScene.play('out', () => scene.scene.stop('Transition'))
+        })
+    }
+
+    if (scene.scene.isActive('Transition')) {
+        playTransition()
+        return
+    }
+
+    transitionScene.events.once(Phaser.Scenes.Events.CREATE, playTransition)
+    scene.scene.launch('Transition')
+}
