@@ -46,3 +46,12 @@ function playAnim(sprite, animName) {
 function keyDown(scene, key) {
     return scene.input.keyboard.checkDown(scene.input.keyboard.addKey(key))
 }
+
+function getRandom(min, max, decimals = 0) {
+	const randomValue = Math.random() * (max - min) + min;
+	return Number(randomValue.toFixed(decimals));
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
