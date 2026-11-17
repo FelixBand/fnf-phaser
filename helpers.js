@@ -43,8 +43,16 @@ function playAnim(sprite, animName) {
     sprite.play(key);
 }
 
+function getCurrentAnimKey(sprite) {
+    return sprite.anims.currentAnim ? sprite.anims.currentAnim.key : null;
+}
+
 function keyDown(scene, key) {
     return scene.input.keyboard.checkDown(scene.input.keyboard.addKey(key))
+}
+
+function keyJustPressed(scene, key) {
+    return Phaser.Input.Keyboard.JustDown(scene.input.keyboard.addKey(key))
 }
 
 function getRandom(min, max, decimals = 0) {
