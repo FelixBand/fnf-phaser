@@ -104,14 +104,14 @@ class MainMenu extends Phaser.Scene {
 		}
 
 		if (mainMenuActive) {
-			if (keyJustPressed(this, 'DOWN')) {
+			if (keyJustPressed(this, 'DOWN') || keyJustPressed(this, 'S')) {
 				mainMenuItemCurSelection += 1
 				if (mainMenuItemCurSelection >= mainMenuItems.length) {
 					mainMenuItemCurSelection = 0
 				}
 				updateMainMenuSelection(this)
 			}
-			if (keyJustPressed(this, 'UP')) {
+			if (keyJustPressed(this, 'UP') || keyJustPressed(this, 'W')) {
 				mainMenuItemCurSelection -= 1
 				if (mainMenuItemCurSelection < 0) {
 					mainMenuItemCurSelection = mainMenuItems.length - 1
