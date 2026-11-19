@@ -40,6 +40,10 @@ function makeMainMenu(scene) {
 	mainMenuActive = true
 }
 
+function makeFreeplayMenu(scene) {
+	scene.menuDesat = scene.add.sprite(centerX, centerY, 'menuDesat')
+}
+
 class MainMenu extends Phaser.Scene {
 	constructor() {
 		super('MainMenu')
@@ -50,7 +54,9 @@ class MainMenu extends Phaser.Scene {
 		makeXMLSprite(this, 'gfTitle', 'gfDanceTitle')
 		makeXMLSprite(this, 'funkinLogo', 'logoBumpin')
 		makeXMLSprite(this, 'titleEnter', 'titleEnter')
+		makeXMLSprite(this, 'alphabet', 'alphabet')
 		makeSprite(this, 'menuBG', 'menuBG')
+		makeSprite(this, 'menuDesat', 'menuDesat')
 
 		this.load.audio('confirmMenu', 'assets/sounds/confirmMenu.ogg')
 		this.load.audio('scrollMenu', 'assets/sounds/scrollMenu.ogg')
@@ -115,6 +121,20 @@ class MainMenu extends Phaser.Scene {
 				mainMenuItemCurSelection -= 1
 				if (mainMenuItemCurSelection < 0) {
 					mainMenuItemCurSelection = mainMenuItems.length - 1
+				}
+				updateMainMenuSelection(this)
+			}
+			if (keyJustPressed(this, 'ENTER')) {
+				mainMenuActive = false
+				this.sound.play('confirmMenu')
+				if (mainMenuItems[mainMenuItemCurSelection] === 'freeplay') {
+					this.time.delayedCall(1000, () => {
+						transition(this, {
+							onCovered: () => {
+								makeFreeplayMenu(this)
+							}
+						})
+					})
 				}
 				updateMainMenuSelection(this)
 			}
